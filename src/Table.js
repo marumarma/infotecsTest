@@ -1,7 +1,9 @@
 
 import { useState, useEffect } from 'react';
 import { useSorting } from "./hooks/useSorting.js"
+import { Modal } from './components/modal.js';
 import './App.css';
+import { useModal } from './hooks/useModal.js';
 
 const Table = ()  => {
 
@@ -17,7 +19,11 @@ const Table = ()  => {
         {key: "city", label : "Город", sortable: false}
     ]
 
+    const [seletedUserId, setSelectedUserId] = useState(null)
+
     const {users, loading, tableState, totalPages, changeSort, changePage, changeLimit} = useSorting()
+
+    const {userId} = useModal()
 
     const getValue = (user, key) => {
         if (key === "country") 
@@ -47,7 +53,7 @@ const Table = ()  => {
                 </th>))}
             </thead>
             <tbody>
-                {users.map((user) => (<tr key ={user.id}>
+                {users.map((user) => (<tr key ={user.id} onClick={() => setSelectedUserId(user.id)}>
                     {Columns.map((column) => (
                         <td key = {column.key}>{getValue(user, column.key)}</td>
                     ))}
@@ -65,6 +71,7 @@ const Table = ()  => {
                 >Вперед</button>
 
             </div>
+            <Modal userId={seletedUserId}></Modal>
     </div>
   );
 }
