@@ -1,58 +1,70 @@
 
 import { useState, useEffect } from 'react';
+import { useSorting } from "./hooks/useSorting.js"
 import './App.css';
 
 const Table = ()  => {
 
-    const [data, setData] = useState([])
     const Columns = [
-        {key: "lastName", label : "Фамилия"},
-        {key: "firstName", label: "Имя"},
-        {key: "maidenName", label: "Отчество"},
-        {key: "gender", label: "Пол"},
-        {key: "phone", label : "Телефон"},
-        {key: "email", label : "E-mail"},
-        {key: "country", label : "Страна"},
-        {key: "city", label : "Город"}
+        {key: "lastName", label : "Фамилия", sortable: true},
+        {key: "firstName", label: "Имя", sortable: true},
+        {key: "maidenName", label: "Отчество", sortable: true},
+        {key: "age", label: "Возраст", sortable: true},
+        {key: "gender", label: "Пол", sortable: true},
+        {key: "phone", label : "Телефон", sortable: true},
+        {key: "email", label : "E-mail", sortable: true},
+        {key: "country", label : "Страна", sortable: false},
+        {key: "city", label : "Город", sortable: false}
     ]
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://dummyjson.com/users')
-            
+    const {users, loading, tableState, totalPages, changeSort, changePage, changeLimit} = useSorting()
 
-            const result = await response.json()
-            setData(result.users)
-            console.log(result)
-        } catch (err){
-            console.error('Ошибка', err)
-            }
-        }
-         fetchData()
-    }, [])
+    const getValue = (user, key) => {
+        if (key === "country") 
+            return user.address?.country ?? "-"
+        if (key === "city") 
+            return user.address?.city ?? "-"
+        return user[key] ?? "-"
+    };
 
+    const pickArrow = (key) => {
+        if (tableState.sortBy !== key) return ""
+        return tableState.order=== "asc" ? " ▲" : " ▼"
+    };
 
-  const getValue = (user, key) => {
-    if (key === 'country') return user.address?.country || '-';
-    if (key === 'city') return user.address?.city || '-';
-    return user[key] || '-';
-  };
+    if (loading) {
+        return <h2>Загрузка...</h2>
+    }
 
   return (
     <div className="Table">
         <table>
             <thead>
-                {Columns.map((column, idx) => (<th key = {idx}>{column.label}</th>))}
+                {Columns.map((column) => (<th key = {column.key} 
+                onClick = {() => column.sortable && changeSort(column.key)} 
+                className = {column.sortable ? 'sortable' : ''}>
+                    {column.label}{column.sortable && pickArrow(column.key)}
+                </th>))}
             </thead>
             <tbody>
-                {data.map((user, rowidx) => (<tr key ={user.id || rowidx}>
-                    {Columns.map((column, cellidx) => (
-                        <td key = {cellidx}>{getValue(user, column.key)}</td>
+                {users.map((user) => (<tr key ={user.id}>
+                    {Columns.map((column) => (
+                        <td key = {column.key}>{getValue(user, column.key)}</td>
                     ))}
                 </tr>))}
             </tbody>
         </table>
+            <div className="pagination">
+                <button disabled={tableState.page === 1}
+                    onClick={() => changePage(tableState.page - 1)}
+                >Назад</button>
+                <span>{tableState.page} / {totalPages}</span>
+                <button
+                    disabled={tableState.page === totalPages}
+                    onClick={() => changePage(tableState.page + 1)}
+                >Вперед</button>
+
+            </div>
     </div>
   );
 }
