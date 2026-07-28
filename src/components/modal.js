@@ -1,9 +1,10 @@
 
 import { useModal } from "../hooks/useModal"
+import "./components.css"
 
 export const Modal = ({userId, onClose}) => {
 
-    const {userData, modalLoading} = useModal(userId)
+    const {userData, modalLoading, isOpen, openModal, closeModal} = useModal(userId)
 
     console.log(userData)
 
@@ -18,9 +19,11 @@ export const Modal = ({userId, onClose}) => {
     }
 
     return(
-        <div style={{background: "cyan"}}>
-            Модальное окно крутое
-            {userData["firstName"]}
+        <div className={`overlay ${isOpen ? "show" : "hide"}`} onClick={onClose}>
+            <div className="modal">
+            Модальное окно крутое{userData["firstName"]}
+            <button onClick={onClose}>Закрыть</button>
+            </div>
         </div>
     )
 }

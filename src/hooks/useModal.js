@@ -5,6 +5,7 @@ export const useModal = (userId) => {
 
     const [userData, setUserData] = useState([])
     const [modalLoading, setModalLoading] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         const loadUserData = async () => {
@@ -22,9 +23,22 @@ export const useModal = (userId) => {
         //не убир
     }, [userId])
 
+    const openModal = () => {
+        setIsOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsOpen(false)
+        setUserData([])
+    }
+
+
     return {
         userId,
         userData,
-        modalLoading
+        modalLoading,
+        isOpen,
+        openModal,
+        closeModal
     }
 }

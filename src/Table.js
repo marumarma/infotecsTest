@@ -23,7 +23,11 @@ const Table = ()  => {
 
     const {users, loading, tableState, totalPages, changeSort, changePage, changeLimit} = useSorting()
 
-    const {userId} = useModal()
+    const {isOpen} = useModal(seletedUserId)
+
+    const handleCloseModal = () => {
+        setSelectedUserId(null)
+    }
 
     const getValue = (user, key) => {
         if (key === "country") 
@@ -71,7 +75,8 @@ const Table = ()  => {
                 >Вперед</button>
 
             </div>
-            <Modal userId={seletedUserId}></Modal>
+            {seletedUserId && <Modal userId={seletedUserId} onClose={handleCloseModal}></Modal> }
+            
     </div>
   );
 }
