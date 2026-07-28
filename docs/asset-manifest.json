@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.e66d1860.css",
-    "main.js": "/static/js/main.611eeda7.js",
-    "static/js/453.b9fcf305.chunk.js": "/static/js/453.b9fcf305.chunk.js",
-    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/index.html",
-    "main.e66d1860.css.map": "/static/css/main.e66d1860.css.map",
-    "main.611eeda7.js.map": "/static/js/main.611eeda7.js.map",
-    "453.b9fcf305.chunk.js.map": "/static/js/453.b9fcf305.chunk.js.map"
+    "main.css": "/infotecsTest/static/css/main.e66d1860.css",
+    "main.js": "/infotecsTest/static/js/main.6709375a.js",
+    "static/js/453.b9fcf305.chunk.js": "/infotecsTest/static/js/453.b9fcf305.chunk.js",
+    "static/media/logo.svg": "/infotecsTest/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/infotecsTest/index.html",
+    "main.e66d1860.css.map": "/infotecsTest/static/css/main.e66d1860.css.map",
+    "main.6709375a.js.map": "/infotecsTest/static/js/main.6709375a.js.map",
+    "453.b9fcf305.chunk.js.map": "/infotecsTest/static/js/453.b9fcf305.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e66d1860.css",
-    "static/js/main.611eeda7.js"
+    "static/js/main.6709375a.js"
   ]
 }
