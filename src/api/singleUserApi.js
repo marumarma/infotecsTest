@@ -1,5 +1,3 @@
-import Table from "../components/Table";
-
 const baseUrl = "https://dummyjson.com/users/"
 
 export const getSingleUser = async (userId) => {

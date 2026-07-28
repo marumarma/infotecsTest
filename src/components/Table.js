@@ -1,10 +1,10 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSorting } from "../hooks/useSorting.js"
 import { Modal } from './modal.js';
 import '../App.css';
 import "../components/components.css"
-import { useModal } from '../hooks/useModal.js';
+import { FiltersInput } from './filters.js';
 
 const Table = ()  => {
 
@@ -15,16 +15,14 @@ const Table = ()  => {
         {key: "age", label: "Возраст", sortable: true},
         {key: "gender", label: "Пол", sortable: true},
         {key: "phone", label : "Телефон", sortable: true},
-        {key: "email", label : "E-mail", sortable: true},
+        {key: "email", label : "E-mail", sortable: false},
         {key: "country", label : "Страна", sortable: false},
         {key: "city", label : "Город", sortable: false}
     ]
 
     const [seletedUserId, setSelectedUserId] = useState(null)
 
-    const {users, loading, tableState, totalPages, changeSort, changePage, changeLimit} = useSorting()
-
-    const {isOpen} = useModal(seletedUserId)
+    const {users, loading, tableState, totalPages, changeSort, changePage, changeFilterValue} = useSorting()
 
     const handleCloseModal = () => {
         setSelectedUserId(null)
@@ -50,6 +48,7 @@ const Table = ()  => {
   return (
     <div className='container'>
         <h3>Кликните на название столбца, чтобы отсортировать. Кликните еще раз, чтобы изменить параметры сортировки.</h3>
+        <FiltersInput changeFilterValue={changeFilterValue} currentFilter={tableState.filter} currentFilterValue={tableState.filterValue}></FiltersInput>
         <table className='Table'>
             <thead>
                 {Columns.map((column) => (<th key = {column.key} 
@@ -59,7 +58,7 @@ const Table = ()  => {
                 </th>))}
             </thead>
             <tbody>
-                {users.map((user, idx) => (<tr className={`table-row ${idx%2 == 0 ? "white" : "pink"}`} key ={user.id} onClick={() => setSelectedUserId(user.id)}>
+                {users.map((user, idx) => (<tr className={`table-row ${idx%2 === 0 ? "white" : "pink"}`} key ={user.id} onClick={() => setSelectedUserId(user.id)}>
                     {Columns.map((column) => (
                         <td key = {column.key} className='cell'>{getValue(user, column.key)}</td>
                     ))}
@@ -75,7 +74,6 @@ const Table = ()  => {
                     disabled={tableState.page === totalPages}
                     onClick={() => changePage(tableState.page + 1)}
                 >Вперед</button>
-
             </div>
             {seletedUserId && <Modal userId={seletedUserId} onClose={handleCloseModal}></Modal> }
             

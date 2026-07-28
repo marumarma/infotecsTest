@@ -1,8 +1,6 @@
-import Table from "../components/Table";
-
 const baseUrl = "https://dummyjson.com/users"
 
-export const getUsers = async (sortBy, order, limit, page) => {
+export const getUsers = async (sortBy, order, limit, page, filter, filterValue) => {
 
     const params = new URLSearchParams()
     params.append("limit", limit)
@@ -12,7 +10,14 @@ export const getUsers = async (sortBy, order, limit, page) => {
         params.append("sortBy", sortBy)
         params.append("order", order)
     }
-    const response = await fetch(`${baseUrl}?${params.toString()}`)
+
+    let currentUrl = baseUrl
+    if (filter && filterValue) {
+        currentUrl = `${baseUrl}/filter`
+        params.append("key", filter)
+        params.append("value", filterValue)
+    }
+    const response = await fetch(`${currentUrl}?${params.toString()}`)
 
     if (!response.ok) {
         throw new Error("Ошибка")

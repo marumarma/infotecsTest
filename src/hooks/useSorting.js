@@ -5,7 +5,9 @@ const defaultState = {
     page: 1,
     limit: 10,
     sortBy: "",
-    order: "asc"
+    order: "asc",
+    filter: "",
+    filterValue: ""
 }
 
 export const useSorting = () => {
@@ -14,12 +16,11 @@ export const useSorting = () => {
     const [loading, setLoading] = useState(true)
     const [total, setTotal] = useState(0)
     const [tableState, setTableState] = useState(defaultState)
-
     useEffect(() => {
         const loadUsers = async () => {
             try {
                 setLoading(true)
-                const data = await getUsers(tableState.sortBy, tableState.order, tableState.limit, tableState.page)
+                const data = await getUsers(tableState.sortBy, tableState.order, tableState.limit, tableState.page, tableState.filter, tableState.filterValue)
                 setUsers(data.users)
                 setTotal(data.total)
             } catch (err) {
@@ -64,16 +65,27 @@ export const useSorting = () => {
         setTableState(prev => ({
             ...prev,
             page
-        }));
-    };
+        }))
+    }
 
-    const changeLimit = (limit) => {
+    const changeFilterValue = (field, value) => {
         setTableState(prev => ({
             ...prev,
-            limit,
-            page: 1,
-        }));
-    };
+            filter: field,
+            filterValue: value,
+            page: 1
+        }))
+    }
+
+    const clearFilter = () => {
+        setTableState(prev => ({
+            ...prev,
+            filter: "",
+            filterValue: "",
+            page: 1
+        }))
+    }
+
 
     return {
         users,
@@ -82,6 +94,7 @@ export const useSorting = () => {
         tableState,
         changeSort,
         changePage,
-        changeLimit
+        changeFilterValue,
+        clearFilter
     }
 }

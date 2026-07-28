@@ -8,15 +8,7 @@ const labels = ["Имя: ", "Фамилия: ", "Отчество: ", "Адре�
 
 export const Modal = ({userId, onClose}) => {
 
-    const {userData, modalLoading, isOpen, openModal, closeModal} = useModal(userId)
-
-    console.log(userData)
-
-    const getValue = (key) => {
-        return userData[key] ?? "-"
-    };
-
-    console.log(getValue("password"))
+    const {userData, modalLoading, isOpen} = useModal(userId)
 
     const measure = (columnKey) => {
         let measureUnit = ""
@@ -44,7 +36,6 @@ export const Modal = ({userId, onClose}) => {
                 }
             }
             else{
-                console.log(userData[key])
                 data.push(`${userData[key]}${measure(key)}`)
             }
         }
