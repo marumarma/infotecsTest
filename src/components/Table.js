@@ -1,9 +1,10 @@
 
 import { useState, useEffect } from 'react';
-import { useSorting } from "./hooks/useSorting.js"
-import { Modal } from './components/modal.js';
-import './App.css';
-import { useModal } from './hooks/useModal.js';
+import { useSorting } from "../hooks/useSorting.js"
+import { Modal } from './modal.js';
+import '../App.css';
+import "../components/components.css"
+import { useModal } from '../hooks/useModal.js';
 
 const Table = ()  => {
 
@@ -47,8 +48,9 @@ const Table = ()  => {
     }
 
   return (
-    <div className="Table">
-        <table>
+    <div className='container'>
+        <h3>Кликните на название столбца, чтобы отсортировать. Кликните еще раз, чтобы изменить параметры сортировки.</h3>
+        <table className='Table'>
             <thead>
                 {Columns.map((column) => (<th key = {column.key} 
                 onClick = {() => column.sortable && changeSort(column.key)} 
@@ -57,9 +59,9 @@ const Table = ()  => {
                 </th>))}
             </thead>
             <tbody>
-                {users.map((user) => (<tr key ={user.id} onClick={() => setSelectedUserId(user.id)}>
+                {users.map((user, idx) => (<tr className={`table-row ${idx%2 == 0 ? "white" : "pink"}`} key ={user.id} onClick={() => setSelectedUserId(user.id)}>
                     {Columns.map((column) => (
-                        <td key = {column.key}>{getValue(user, column.key)}</td>
+                        <td key = {column.key} className='cell'>{getValue(user, column.key)}</td>
                     ))}
                 </tr>))}
             </tbody>

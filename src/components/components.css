@@ -2,11 +2,19 @@
     overflow-y: auto;
     z-index: 1000;
     background-color: white;
-    padding: 25px;
+    padding: 64px;
     border-radius: 25px;
     max-width: 800px;
     width: 90%;
     max-height: 90vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sortable{
+    cursor: pointer;
 }
 
 .overlay {
@@ -22,6 +30,79 @@
     z-index: 999;
 }
 
-.show{
+.Table{
+    width: 100vw;
+    max-width: 1400px;
+    border: 2px solid rgb(170, 170, 170);
+}
+
+.container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.table-row{
     
+    cursor: pointer;
+}
+
+.pink{
+    background-color: rgb(248, 227, 244);
+}
+
+.pink:hover > td{
+    transition-duration: 0.3s;
+    color: rgb(177, 59, 155);
+}
+
+
+.white{
+    background-color: white;
+}
+
+.white:hover > td{
+    transition-duration: 0.3s;
+    color: rgb(177, 59, 155);
+}
+
+.cell{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.modal-row{
+    margin-top: 8px;
+    text-align: start;
+}
+
+.modal-button{
+    margin-top: 16px;
+    padding: 8px;
+    width: 30vh;
+    align-self: center;
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.avatar{
+    width: 300px;
+    margin-right: 32px;
+    object-fit: cover;
+}
+table{
+    border-collapse: collapse;
 }

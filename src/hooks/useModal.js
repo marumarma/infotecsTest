@@ -20,7 +20,6 @@ export const useModal = (userId) => {
             }
         }
         loadUserData()
-        //не убир
     }, [userId])
 
     const openModal = () => {
